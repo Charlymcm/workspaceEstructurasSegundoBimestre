@@ -1,0 +1,191 @@
+package deberListasDoblementeEnlazadas;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class AplicacionGUI extends JFrame implements ActionListener{
+
+	private JLabel lblInsertar, lblEliminar, lblBuscar, lblRelleno;
+	private JButton btnInsInicio, btnInsFinal, btnElimInicio, btnElimFinal, btnElimIndice, btnElimNombre, btnBuscIndice, btnBuscNombre ;
+	private JTextField txtInsInicio, txtInsFinal, txtElimInicio, txtElimFinal, txtElimIndice, txtElimNombre, txtBuscIndice, txtBuscNombre;
+	private JTextArea txaDesplegar;
+	private JPanel pnlGUI;
+
+	void LimpiarGUI(){
+		txtInsInicio.setText(null);
+		txtInsInicio.setText(null); 
+		txtInsFinal.setText(null);
+		txtElimInicio.setText(null); 
+		txtElimFinal.setText(null);
+		txtElimIndice.setText(null); 
+		txtElimNombre.setText(null); 
+		txtBuscIndice.setText(null); 
+		txtBuscNombre.setText(null);	
+	}
+
+	public AplicacionGUI(){
+		super("Listas Doblemente Enlazadas");
+		Container contenedor = getContentPane();
+		contenedor.setLayout(new FlowLayout() );
+		contenedor.setBounds( 10, 200, 100, 100 );
+		contenedor.setBackground(Color.LIGHT_GRAY);
+		
+		pnlGUI = new JPanel();
+		pnlGUI.setLayout(new  GridLayout(4,5));
+		contenedor.add(pnlGUI);
+
+		/*                                   	*/ 
+		lblInsertar = new JLabel("Insertar");
+		//lblInsertar.setToolTipText( "" );
+		pnlGUI.add(lblInsertar);
+		lblInsertar.setVisible(true);
+		
+		btnInsInicio = new JButton();
+		btnInsInicio.setText("Al Inicio");
+		pnlGUI.add(btnInsInicio);
+		btnInsInicio.setActionCommand("Al Inicio");
+		btnInsInicio.addActionListener(this);
+		btnInsInicio.setBackground(Color.WHITE);
+
+		txtInsInicio = new JTextField(6);
+		pnlGUI.add(txtInsInicio);
+
+		btnInsFinal = new JButton();
+		btnInsFinal.setText("Al Final");
+		pnlGUI.add(btnInsFinal);
+		btnInsFinal.setActionCommand("Al Final");
+		btnInsFinal.addActionListener(this);
+		btnInsFinal.setBackground(Color.WHITE);
+		
+		txtInsFinal = new JTextField(6);
+		pnlGUI.add(txtInsFinal);
+		
+		/*                                   	*/
+		lblEliminar = new JLabel("Eliminar");
+		//lblEliminar.setToolTipText( "" );
+		pnlGUI.add(lblEliminar);
+		lblEliminar.setVisible(true);
+
+		btnElimInicio = new JButton();
+		btnElimInicio.setText("Al Inicio.");
+		pnlGUI.add(btnElimInicio);
+		btnElimInicio.setActionCommand("Al Inicio.");
+		btnElimInicio.addActionListener(this);
+		btnElimInicio.setBackground(Color.WHITE);
+		
+		txtElimInicio = new JTextField(6);
+		pnlGUI.add(txtElimInicio);
+		
+		btnElimFinal = new JButton();
+		btnElimFinal.setText("Al Final.");
+		pnlGUI.add(btnElimFinal);
+		btnElimFinal.setActionCommand("Al Final.");
+		btnElimFinal.addActionListener(this);
+		btnElimFinal.setBackground(Color.WHITE);
+		
+		txtElimFinal = new JTextField(6);
+		pnlGUI.add(txtElimFinal);
+		
+		//lblInsertar.setToolTipText( "" );
+		pnlGUI.add(lblInsertar);
+		lblInsertar.setVisible(false);
+		
+		btnElimIndice = new JButton();
+		btnElimIndice.setText("Por Indice");
+		pnlGUI.add(btnElimIndice);
+		btnElimIndice.setActionCommand("Por Indice");
+		btnElimIndice.addActionListener(this);
+		btnElimIndice.setBackground(Color.WHITE);
+		
+		txtElimIndice = new JTextField(6);
+		pnlGUI.add(txtElimIndice);
+		
+		btnElimNombre = new JButton();
+		btnElimNombre.setText("Por Nombre");
+		pnlGUI.add(btnElimNombre);
+		btnElimNombre.setActionCommand("Por Nombre");
+		btnElimNombre.addActionListener(this);
+		btnElimNombre.setBackground(Color.WHITE);
+		
+		txtElimNombre = new JTextField(6);
+		pnlGUI.add(txtElimNombre);	
+		
+		/*                                   	*/
+		lblBuscar = new JLabel("Buscar");
+		//lblBuscar.setToolTipText( "" );
+		pnlGUI.add(lblBuscar);
+		lblBuscar.setVisible(true);
+		
+		btnBuscIndice = new JButton();
+		btnBuscIndice.setText("Por Índice");
+		pnlGUI.add(btnBuscIndice);
+		btnBuscIndice.setActionCommand("Por Índice");
+		btnBuscIndice.addActionListener(this);
+		btnBuscIndice.setBackground(Color.WHITE);
+		
+		txtBuscIndice = new JTextField(6);
+		pnlGUI.add(txtBuscIndice);	
+				
+		btnBuscNombre = new JButton();
+		btnBuscNombre.setText("Por Nombre.");
+		pnlGUI.add(btnBuscNombre);
+		btnBuscNombre.setActionCommand("Por Nombre.");
+		btnBuscNombre.addActionListener(this);
+		btnBuscNombre.setBackground(Color.WHITE);
+	
+		txtBuscNombre = new JTextField(6);
+		pnlGUI.add(txtBuscNombre);	
+		
+		txaDesplegar=new JTextArea(6,1);
+		txaDesplegar.setEditable(false);
+		pnlGUI.add(txaDesplegar);
+
+		super.setBounds(100, 200, 500, 200);
+		this.setVisible(true);
+	}
+	
+	public static void main( String args[] ){ 
+		AplicacionGUI aplicacion = new AplicacionGUI();
+		aplicacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		String a = e.getActionCommand();
+
+		if(a.equals("aceptar")){
+			
+		}
+		
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -1,0 +1,5 @@
+INDEX VERSION 1.129+C:\Users\personal\Desktop\EPN\2016-B\Estructuras de Datos\workspaceEstructurasSegundoBimestre\.metadata\.plugins\org.eclipse.jdt.core
+3270016726.index
+4176302404.index
+1539317600.index
+924678323.index

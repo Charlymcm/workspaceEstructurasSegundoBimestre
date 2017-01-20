@@ -1,0 +1,571 @@
+/*NOMBRE: ANGEL YANEZ Y CARLOS MORALES
+FECHA ENTREGA: 11/05/2016*/
+package producto;
+
+import java.awt.Checkbox;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+
+public class CapturarProductoV4 extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 197690117657110605L;
+	private JLabel lblId,lblCodigo,lblNombre,lblSaldo,lblPrecio,lblFecha,lblIVA,lblGrasa,lblAzucar,lblSal,lblProveedor;
+	private JButton btnAceptar,btnCancelar,btnSalir;
+	private JTextField txtId,txtCodigo,txtNombre,txtSaldo,txtPrecio,txtFecha;
+	private JRadioButton rbtnIVASi,rbtnIVANo;
+	private JComboBox cboTipoProducto,cboSubTipoProducto;
+	private ButtonGroup grpIVA;
+	private JPanel panelArea,panelTextos,panelBtn,panelRbtn,panelCombo,panelList,panelCheckBox;
+	private JList grasa,azucar,sal;
+	private JCheckBox chkPronaca,chkJuris,chkMercadoMayorista,chkMercadoDeLaOfelia;
+	private JScrollPane scrollPane;
+	private JTextArea txaDesplegar;
+	private String strListaTipoProducto[]={"escoja un tipo","alimento","vestimenta","juguetes","herramientas"};
+	private String strListaSubTipoProducto[]={"escoja un subtipo","frutas","verduras","lacteos","carnes","otros","N/A"};
+	private String strListaPresencia[]={"alto","medio","bajo"};
+	ProductoBean objProducto=new ProductoBean();
+	Font fuenteLetra = new Font("Arial", Font.ITALIC, 12);
+
+	void LimpiarGUI(){
+		txtCodigo.setText(null);
+		txtNombre.setText(null);
+		txtSaldo.setText(null);
+		txtPrecio.setText(null);
+		txtFecha.setText(null);
+		grpIVA.clearSelection();
+		cboTipoProducto.setSelectedIndex(0);
+		cboSubTipoProducto.setSelectedIndex(0);
+		grasa.clearSelection();
+		azucar.clearSelection();
+		sal.clearSelection();
+		chkPronaca.setSelected(false);
+		chkJuris.setSelected(false);
+		chkMercadoMayorista.setSelected(false);
+		chkMercadoDeLaOfelia.setSelected(false);
+	}
+
+	void LimpiarBean(){
+		objProducto.setCodigoProducto("");
+		objProducto.setFechaCreacionProducto("");
+		objProducto.setIVAProducto("");
+		objProducto.setNombreProducto("");
+		objProducto.setPrecioUnitarioProducto(0.0);
+		objProducto.setPresenciaAzucar("");
+		objProducto.setPresenciaGrasa("");
+		objProducto.setPresenciaSal("");
+		objProducto.setProveedor("");
+		objProducto.setSaldoProducto(0);
+		objProducto.setSubTipoProducto("");
+		objProducto.setTipoProducto("");
+	}
+
+	public CapturarProductoV4() {
+		super("ingreso datos del producto");
+		Container contenedor=getContentPane();
+		contenedor.setLayout( new FlowLayout());
+		contenedor.setBounds(10, 200, 100, 100);
+		contenedor.setBackground(Color.LIGHT_GRAY);
+
+		panelTextos=new JPanel();
+		panelTextos.setLayout(new  GridLayout(10,2,5,5));
+		contenedor.add(panelTextos);
+
+		panelRbtn=new JPanel();
+		panelRbtn.setLayout(new  GridLayout(1,1));
+		contenedor.add(panelRbtn);
+
+		panelCombo=new JPanel();
+		panelCombo.setLayout(new  GridLayout(1,2));
+		contenedor.add(panelCombo);
+
+		panelList=new JPanel();
+		panelList.setLayout(new  GridLayout(1,1));
+		contenedor.add(panelList);
+
+		panelCheckBox=new JPanel();
+		panelCheckBox.setLayout(new  GridLayout(1,1));
+		contenedor.add(panelCheckBox);
+
+		panelBtn=new JPanel();
+		panelBtn.setLayout(new  GridLayout(1,1));
+		contenedor.add(panelBtn);
+
+		panelArea=new JPanel();
+		panelArea.setBounds(5, 1, 10, 20);
+		scrollPane=new JScrollPane();
+		scrollPane.setViewportView(panelArea);
+		scrollPane.getViewport().setView(panelArea);
+		contenedor.add(scrollPane);
+
+		lblId = new JLabel( "id");
+		lblId.setToolTipText( "" );
+		panelTextos.add( lblId);
+		lblId.setVisible(true);
+
+		txtId = new JTextField( 4 );
+		panelTextos.add( txtId);
+		txtId.setVisible(true);
+		txtId.setText(String.valueOf(objProducto.getIdProducto()+1));
+		txtId.setEnabled(false);
+
+		lblCodigo = new JLabel( "codigo");
+		lblCodigo.setToolTipText( "formato: XX999" );
+		panelTextos.add( lblCodigo);
+
+		txtCodigo = new JTextField( 6 );
+		panelTextos.add( txtCodigo);
+
+		lblNombre = new JLabel( "nombre");
+		lblNombre.setToolTipText( "formato: XXXXXX..." );
+		panelTextos.add( lblNombre);
+
+		txtNombre = new JTextField( 25 );
+		panelTextos.add( txtNombre);
+
+		lblSaldo = new JLabel( "saldo");
+		lblSaldo.setToolTipText( "valores mayor o igual a 0 y menor o igual a 4000" );
+		panelTextos.add( lblSaldo);
+
+		txtSaldo = new JTextField( 4 );
+		panelTextos.add( txtSaldo);
+
+		lblPrecio = new JLabel( "precio unitario");
+		lblPrecio.setToolTipText( "valores mayor a 0 y menor o igual a 1000" );
+		panelTextos.add( lblPrecio);
+
+		txtPrecio = new JTextField( 7 );
+		panelTextos.add( txtPrecio);
+
+		lblFecha = new JLabel( "fecha");
+		lblFecha.setToolTipText( "formato: AAAA/MM/DD" );
+		panelTextos.add( lblFecha);
+
+		txtFecha = new JTextField( 10 );
+		panelTextos.add( txtFecha);
+
+		lblIVA = new JLabel( "IVA");
+		panelRbtn.add( lblIVA);
+
+		rbtnIVASi=new JRadioButton("si",false);
+		rbtnIVANo=new JRadioButton("no",false);
+		panelRbtn.add(rbtnIVASi);
+		panelRbtn.add(rbtnIVANo);
+
+		grpIVA = new ButtonGroup();
+		grpIVA.add(rbtnIVASi );
+		grpIVA.add( rbtnIVANo );
+
+		cboTipoProducto= new JComboBox(strListaTipoProducto);
+		cboTipoProducto.setMaximumRowCount(5);
+		cboTipoProducto.setSelectedIndex(0);
+		cboTipoProducto.addItemListener
+		(
+				new ItemListener()
+				{
+
+					public void itemStateChanged(ItemEvent e) 
+					// TODO Auto-generated method stub
+					{
+						if (e.getStateChange() == ItemEvent.SELECTED)
+							cboTipoProducto.getSelectedIndex();
+						cboSubTipoProducto.setEnabled(false);
+
+						if (cboTipoProducto.getSelectedIndex()==2)
+						{
+							cboTipoProducto.getSelectedItem();
+							cboSubTipoProducto.setEnabled(false);
+							cboSubTipoProducto.setSelectedItem("N/A");
+							panelList.setVisible(false);
+
+						}
+						if (cboTipoProducto.getSelectedIndex()==1)
+						{
+							cboTipoProducto.getSelectedItem();
+							cboSubTipoProducto.setEnabled(true);
+							panelList.setVisible(true);
+						}
+						if (cboTipoProducto.getSelectedIndex()==3)
+						{
+							cboTipoProducto.getSelectedItem();
+							cboSubTipoProducto.setEnabled(false);
+							cboSubTipoProducto.setSelectedItem("N/A");
+							panelList.setVisible(false);
+
+						}
+						if (cboTipoProducto.getSelectedIndex()==4)
+						{
+							cboTipoProducto.getSelectedItem();
+							cboSubTipoProducto.setEnabled(false);
+							cboSubTipoProducto.setSelectedItem("N/A");
+							panelList.setVisible(false);
+						}
+
+					}
+
+				}
+				);
+		panelCombo.add(cboTipoProducto);
+
+		cboSubTipoProducto= new JComboBox(strListaSubTipoProducto);
+		cboSubTipoProducto.setMaximumRowCount(6);
+		cboSubTipoProducto.setSelectedIndex(0);
+		panelCombo.add(cboSubTipoProducto);
+
+
+		lblGrasa = new JLabel( "presencia de grasa:");
+		panelList.add( lblGrasa);
+
+		grasa= new JList(strListaPresencia);
+		panelList.add(grasa);
+
+		lblAzucar = new JLabel( "presencia de azucar:");
+		panelList.add( lblAzucar);
+
+		azucar= new JList(strListaPresencia);
+		panelList.add(azucar);
+
+		lblSal = new JLabel( "presencia de sal:");
+		panelList.add( lblSal);
+
+		sal= new JList(strListaPresencia);
+		panelList.add(sal);
+
+		lblProveedor = new JLabel( "proveedor:");
+		panelCheckBox.add( lblProveedor);
+
+		chkPronaca = new JCheckBox("Pronaca");
+		chkPronaca.setMnemonic(KeyEvent.VK_B); 
+		chkPronaca.setSelected(false);
+		panelCheckBox.add( chkPronaca);
+
+		chkJuris = new JCheckBox("Juris");
+		chkJuris.setMnemonic(KeyEvent.VK_B); 
+		chkJuris.setSelected(false);
+		panelCheckBox.add( chkJuris);
+
+		chkMercadoMayorista = new JCheckBox("mercado Mayorista");
+		chkMercadoMayorista.setMnemonic(KeyEvent.VK_B); 
+		chkMercadoMayorista.setSelected(false);
+		panelCheckBox.add( chkMercadoMayorista);
+
+		chkMercadoDeLaOfelia = new JCheckBox("mercado de la Ofelia");
+		chkMercadoDeLaOfelia.setMnemonic(KeyEvent.VK_B); 
+		chkMercadoDeLaOfelia.setSelected(false);
+		panelCheckBox.add( chkMercadoDeLaOfelia);
+
+		btnAceptar= new JButton();
+		btnAceptar.setText("aceptar");
+		panelBtn.add(btnAceptar);
+		btnAceptar.setActionCommand("aceptar");
+		btnAceptar.addActionListener(this);
+		btnAceptar.setBackground(Color.WHITE);
+
+		btnCancelar= new JButton();
+		btnCancelar.setText("cancelar");
+		panelBtn.add(btnCancelar);
+		btnCancelar.setActionCommand("cancelar");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBackground(Color.gray);
+
+		btnSalir= new JButton();
+		btnSalir.setText("salir");
+		panelBtn.add(btnSalir);
+		btnSalir.setActionCommand("salir");
+		btnSalir.addActionListener(this);
+		btnSalir.setBackground(Color.RED);
+
+		txaDesplegar=new JTextArea(6,1);
+		txaDesplegar.setText("  ID  "+"CODIGO"+" DESCRIPCION                                         "+"SALDO "+" VALOR UNITARIO "+"  FECHA CREACION"+"  IVA"+"  TIPO DE PRODUCTO"+"  SUBTIPO DE PRODUCTO"+"  PRESENCIA DE GRASA"+"  PRESENCIA DE AZUCAR"+"  PRESENCIA DE SAL"+"  PROVEEDOR(ES)"+"\n");
+		txaDesplegar.setEditable(false);
+		panelArea.add(txaDesplegar);
+
+
+		super.setBounds(100, 200, 500, 200);
+		this.setVisible(true);
+	}
+
+	public static void main( String args[] ){ 
+		CapturarProductoV4 aplicacion=new CapturarProductoV4();
+		aplicacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	public void actionPerformed(ActionEvent e) {
+		String a=e.getActionCommand();
+		String strErrores="";
+		Pattern validarCodigo;
+		Matcher Codigo;
+		SimpleDateFormat formato;
+		Date fecha;
+		Date fechaActual;
+		int intContador=1;
+
+		if(a.equals("aceptar")){
+
+			fuenteLetra= new Font("Arial", Font.PLAIN, 16);
+			txaDesplegar.setFont(fuenteLetra);
+			if((txtCodigo.getText().equals(""))||(txtNombre.getText().equals(""))||(txtSaldo.getText().equals(""))||(txtPrecio.getText().equals(""))||(txtFecha.getText().equals(""))){//VALIDA LOS ESPACIOS EN BLANCO
+				strErrores="\nno se aceptan espacios en blanco en ningun casillero";
+			}else{
+				if(txtCodigo.getText().length()==5){//VALIDA LA LONGITUD DEL CODIGO
+					validarCodigo=Pattern.compile("^[[A-Z][Ñ]]{2}");
+					Codigo=validarCodigo.matcher(txtCodigo.getText().substring(0,2));
+					if(!Codigo.matches()){//VALIDAR LOS DOS PRIMEROS CARACTERES DEL CODIGO
+						strErrores+="\nCODIGO:los dos primeros caracteres deben ser letras mayusculas";
+					}
+					validarCodigo=Pattern.compile("[1-9]{3}");
+					Codigo=validarCodigo.matcher(txtCodigo.getText().substring(2,5));
+					if(!Codigo.matches()){//VALIDAR LOS 3 SIGUIENTES CARACTERES DEL CODIGO
+						strErrores+="\nCODIGO:los 3 ultimos caracteres deben ser digitos";
+					}
+				}else{
+					strErrores+="\nCODIGO:no puede ingresar ni mas ni menos que 5 caracteres: 2 letras mayusculas y 3 digitos";
+				}
+
+
+				if(txtNombre.getText().length()<=25){//VALIDAR LONGITUD DEL NOMBRE
+					validarCodigo=Pattern.compile("[[A-Z][ ][Ñ]]{1,25}");
+					Codigo=validarCodigo.matcher(txtNombre.getText());
+					if(!Codigo.matches()){//VALIDAR SOLO LETRAS MAYUSCULAS Y ESPACIO
+						strErrores+="\nNOMBRE:los caracteres no pueden ser distintos a letras mayusculas";
+					}
+				}else{
+					strErrores+="\nNOMBRE:no puede introducir mas de 25 letras incluido espacios";
+				}
+
+				try{
+					if(Integer.parseInt(txtSaldo.getText())>4000&&Integer.parseInt(txtSaldo.getText())<0){//VALIDAR EL SALDO ENTRE 0-4000
+						strErrores+="\nSALDO:los valores no pueden ser mayores a 4000 ni menores a 0";
+					}	
+				}
+				catch(Exception ex){
+					strErrores+="\nSALDO:los caracteres ingresados no pueden ser distintos de numeros";
+				}
+
+				try{
+					if(Double.parseDouble(txtPrecio.getText())<=0&&Double.parseDouble(txtPrecio.getText())>1000){//VALIDAR EL PRECIO ENTRE 0-1000
+						strErrores+="\nPRECIO:los valores ingresados deben ser mayores a 0 y menores a 1000";
+					}	
+				}
+				catch(Exception ex){
+					strErrores+="\nPRECIO:no puede digitar caracteres que no sean numericos";
+				}
+
+				validarCodigo=Pattern.compile("^[0-9]{4}/[0-1][0-9]/[0-3][0-9]$");
+				Codigo=validarCodigo.matcher(txtFecha.getText());
+				if(Codigo.matches()){//VALIDAR FORMATO DE FECHA
+					formato=new SimpleDateFormat("yyyy/MM/dd");
+					fecha=null;
+					fechaActual=new Date();
+					try{
+						fecha=formato.parse(txtFecha.getText());
+					}
+					catch(ParseException ex){
+						ex.printStackTrace();
+					}
+					if (!((fecha.before(fechaActual))||(fecha.equals(fechaActual)))){//VALIDAR FECHA MENOR A LA ACTUAL
+						strErrores+="\nFECHA:la fecha digitada es mayor a la actual";
+					} 
+				}else{
+					strErrores+="\nFECHA:no puede ingresar una fecha diferente a la del formato indicado";
+				}
+			}
+			if(!(rbtnIVASi.isSelected()||rbtnIVANo.isSelected())){//VALIDA EL IVA
+				strErrores+="\nIVA:no ha seleccionado una opcion";
+			}
+			if(cboTipoProducto.getSelectedIndex()==0){//VALIDA EL TIPO
+				strErrores+="\nTIPO:no escogio una opcion de tipo";
+			}
+			if(cboSubTipoProducto.getSelectedIndex()==0){//VALIDA EL SUB TIPO
+				strErrores+="\nSUB TIPO:no escogio una opcion de sub tipo";
+			}
+			if(cboTipoProducto.getSelectedIndex()==1||cboTipoProducto.getSelectedIndex()==0){//VALIDA LA PRESENCIA DE GRASA,SAL Y AZUCAR EN EL CASO DE QUE ESCOJIERA ALIMENTO
+				if(grasa.getSelectedIndex()==-1){
+					strErrores+="\nGRASA:no escogio una opcion de presencia de grasa";
+				}
+				if(azucar.getSelectedIndex()==-1){
+					strErrores+="\nAZUCAR:no escogio una opcion de presencia de azucar";
+				}
+				if(sal.getSelectedIndex()==-1){
+					strErrores+="\nSAL:no escogio una opcion de presencia de sal";
+				}
+			}
+			if(chkPronaca.isSelected()==false&&chkJuris.isSelected()==false&&chkMercadoMayorista.isSelected()==false&&chkMercadoDeLaOfelia.isSelected()==false){//VALIDA PROVEEDOR
+				strErrores+="\nPROVEEDOR:no escogio un proveedor";
+			}
+
+			if(strErrores.length()==0){//VALIDAR SI NO EXISTE ERRORES
+				LimpiarBean();
+				objProducto.setIdProducto((objProducto.getIdProducto()+1));//aumento del contador de idProducto
+				objProducto.setNombreProducto(txtNombre.getText());
+				objProducto.setCodigoProducto(txtCodigo.getText());
+				objProducto.setSaldoProducto(Integer.parseInt(txtSaldo.getText()));
+				objProducto.setPrecioUnitarioProducto(Double.parseDouble(txtPrecio.getText()));
+				objProducto.setFechaCreacionProducto(txtFecha.getText());
+				if(rbtnIVASi.isSelected()){
+					objProducto.setIVAProducto("si");
+				}else{
+					objProducto.setIVAProducto("no");
+				}
+				if(cboTipoProducto.getSelectedIndex()==1){
+					objProducto.setTipoProducto(strListaTipoProducto[1]);
+				}
+				if(cboTipoProducto.getSelectedIndex()==2){
+					objProducto.setTipoProducto(strListaTipoProducto[2]);
+				}
+				if(cboTipoProducto.getSelectedIndex()==3){
+					objProducto.setTipoProducto(strListaTipoProducto[3]);
+				}
+				if(cboTipoProducto.getSelectedIndex()==4){
+					objProducto.setTipoProducto(strListaTipoProducto[4]);
+				}
+
+				if(cboTipoProducto.getSelectedIndex()==1){
+					if(cboSubTipoProducto.getSelectedIndex()==1){
+						objProducto.setSubTipoProducto(strListaSubTipoProducto[1]);
+					}
+					if(cboSubTipoProducto.getSelectedIndex()==2){
+						objProducto.setSubTipoProducto(strListaSubTipoProducto[2]);
+					}
+					if(cboSubTipoProducto.getSelectedIndex()==3){
+						objProducto.setSubTipoProducto(strListaSubTipoProducto[3]);
+					}
+					if(cboSubTipoProducto.getSelectedIndex()==4){
+						objProducto.setSubTipoProducto(strListaSubTipoProducto[4]);
+					}
+					if(cboSubTipoProducto.getSelectedIndex()==5){
+						objProducto.setSubTipoProducto(strListaSubTipoProducto[5]);
+					}
+				}else{
+					objProducto.setSubTipoProducto(strListaSubTipoProducto[6]);
+				}
+				if(cboTipoProducto.getSelectedIndex()==1){
+					if(grasa.getSelectedIndex()==0){
+						objProducto.setPresenciaGrasa(strListaPresencia[0]);
+					}
+					if(grasa.getSelectedIndex()==1){
+						objProducto.setPresenciaGrasa(strListaPresencia[1]);
+					}
+					if(grasa.getSelectedIndex()==2){
+						objProducto.setPresenciaGrasa(strListaPresencia[2]);
+					}
+					if(azucar.getSelectedIndex()==0){
+						objProducto.setPresenciaAzucar(strListaPresencia[0]);
+					}
+					if(azucar.getSelectedIndex()==1){
+						objProducto.setPresenciaAzucar(strListaPresencia[1]);
+					}
+					if(azucar.getSelectedIndex()==2){
+						objProducto.setPresenciaAzucar(strListaPresencia[2]);
+					}
+					if(sal.getSelectedIndex()==0){
+						objProducto.setPresenciaSal(strListaPresencia[0]);
+					}
+					if(sal.getSelectedIndex()==1){
+						objProducto.setPresenciaSal(strListaPresencia[1]);
+					}
+					if(sal.getSelectedIndex()==2){
+						objProducto.setPresenciaSal(strListaPresencia[2]);
+					}
+				}else{
+					objProducto.setPresenciaGrasa("N/A");
+					objProducto.setPresenciaAzucar("N/A");
+					objProducto.setPresenciaSal("N/A");
+				}
+				if(chkPronaca.isSelected()==true){
+					objProducto.setProveedor(objProducto.getProveedor()+"pronaca; ");
+				}
+				if(chkJuris.isSelected()==true){
+					objProducto.setProveedor(objProducto.getProveedor()+"juris; ");
+				}
+				if(chkMercadoMayorista.isSelected()==true){
+					objProducto.setProveedor(objProducto.getProveedor()+"mercado Mayorista; ");
+				}
+				if(chkMercadoDeLaOfelia.isSelected()==true){
+					objProducto.setProveedor(objProducto.getProveedor()+"mercado de la Ofelia; ");
+				}
+
+
+				txtId.setText(String.valueOf(objProducto.getIdProducto()+1));
+
+				LimpiarGUI();
+
+				while(intContador<=4-Integer.toString(objProducto.getIdProducto()).length()){//PONER ESPACIOS ANTES DEL ID
+					txaDesplegar.append(" ");
+					intContador++;
+				}
+				txaDesplegar.append(objProducto.getIdProducto()+"   "+objProducto.getCodigoProducto()+"    "+objProducto.getNombreProducto());
+				intContador=1;
+				while(intContador<=25-objProducto.getNombreProducto().length()){//PONER ESPACIOS DESPUES DEL NOMBRE
+					txaDesplegar.append(" ");
+					intContador++;
+				}
+				txaDesplegar.append("                 ");
+				intContador=1;
+				while(intContador<=4-Integer.toString(objProducto.getSaldoProducto()).length()){//PONER ESPACIOS ANTES DEL SALDO
+					txaDesplegar.append(" ");
+					intContador++;
+				}
+				txaDesplegar.append(String.valueOf(objProducto.getSaldoProducto()));
+				txaDesplegar.append("                 ");
+				intContador=1;
+
+				while(intContador<=8-Integer.toString((int)Math.floor(objProducto.getPrecioUnitarioProducto())).length()){//PONER ESPACIOS ANTES DEL PRECIO
+					txaDesplegar.append(" ");
+					intContador++;
+				}
+				intContador=1;
+				DecimalFormat decimales = new DecimalFormat("0.00");
+				txaDesplegar.append(decimales.format(objProducto.getPrecioUnitarioProducto()));
+				txaDesplegar.append("      "+objProducto.getFechaCreacionProducto());
+				txaDesplegar.append("              "+objProducto.getIVAProducto());
+				txaDesplegar.append("     "+objProducto.getTipoProducto());
+				txaDesplegar.append("                          "+objProducto.getSubTipoProducto());
+				txaDesplegar.append("                                    "+objProducto.getPresenciaGrasa());
+				txaDesplegar.append("                                  "+objProducto.getPresenciaAzucar());
+				txaDesplegar.append("                                         "+objProducto.getPresenciaSal());
+				txaDesplegar.append("                            "+objProducto.getProveedor());
+				txaDesplegar.append("\n");
+
+			}else{
+				JOptionPane.showMessageDialog(null, strErrores,"cuadro de errores",0);
+				return;
+			}
+		}
+		if(a.equals("cancelar")){
+			LimpiarGUI();	
+		}
+		if(a.equals("salir")){
+			System.exit(0);
+		}
+	}
+}

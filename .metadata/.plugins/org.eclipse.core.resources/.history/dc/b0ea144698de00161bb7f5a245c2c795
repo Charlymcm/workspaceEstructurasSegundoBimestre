@@ -1,0 +1,93 @@
+package deberListasDoblementeEnlazadas;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class AplicacionGUI extends JFrame implements ActionListener{
+
+	private JLabel lblInsertar, lblEliminar, lblBuscar;
+	private JButton btnInsInicio, btnInsFinal, btnElimInicio, btnElimFinal, btnElimIndice, btnElimNombre, btnBuscIndice, btnBuscNombre ;
+	private JTextField txtInsInicio, txtInsFinal, txtElimInicio, txtElimFinal, txtElimIndice, txtElimNombre, txtBuscIndice, txtBuscFinal;
+	private JTextArea txaDesplegar;
+	private JPanel pnlGUI;
+
+	void LimpiarGUI(){
+		txtInsInicio.setText(null);
+		txtInsInicio.setText(null); 
+		txtInsFinal.setText(null);
+		txtElimInicio.setText(null); 
+		txtElimFinal.setText(null);
+		txtElimIndice.setText(null); 
+		txtElimNombre.setText(null); 
+		txtBuscIndice.setText(null); 
+		txtBuscFinal.setText(null);	
+	}
+
+	public AplicacionGUI(){
+		super("Listas Doblemente Enlazadas");
+		Container contenedor = getContentPane();
+		contenedor.setLayout(new FlowLayout() );
+		contenedor.setBounds( 10, 200, 100, 100 );
+		contenedor.setBackground(Color.LIGHT_GRAY);
+
+		lblInsertar = new JLabel("Insertar");
+		//lblInsertar.setToolTipText( "" );
+		contenedor.add(lblInsertar);
+		lblInsertar.setVisible(true);
+
+		lblEliminar = new JLabel("Eliminar");
+		//lblEliminar.setToolTipText( "" );
+		contenedor.add(lblEliminar);
+		lblEliminar.setVisible(true);
+
+		lblBuscar = new JLabel("Buscar");
+		//lblBuscar.setToolTipText( "" );
+		contenedor.add(lblBuscar);
+		lblBuscar.setVisible(true);
+
+		txaDesplegar=new JTextArea(6,1);
+		txaDesplegar.setEditable(false);
+		contenedor.add(txaDesplegar);
+
+		super.setBounds(100, 200, 500, 200);
+		this.setVisible(true);
+	}
+	
+	public static void main( String args[] ){ 
+		AplicacionGUI aplicacion = new AplicacionGUI();
+		aplicacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		String a = e.getActionCommand();
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

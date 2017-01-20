@@ -1,0 +1,47 @@
+package deberListasDoblementeEnlazadas;
+
+public class Nodo {
+	Libro informacion;
+	Nodo enlace;
+	
+	public Nodo(Libro libro) {
+		super();
+		
+		informacion = libro;
+		enlace = null;
+	}
+
+	public Nodo(Libro libro, Node enlace) {
+		super();
+		this.informacion = libro;
+		this.enlace = enlace;
+	}
+	
+	
+	Libro obtenerLibro(){
+		return informacion;
+	}
+	
+	Nodo obtenerSiguienteLibro(){
+		return enlace;
+	}
+
+	public Libro getInformacion() {
+		return informacion;
+	}
+
+	public void setInformacion(Libro informacion) {
+		this.informacion = informacion;
+	}
+
+	public Nodo getEnlace() {
+		return enlace;
+	}
+
+	public void setEnlace(Nodo enlace) {
+		this.enlace = enlace;
+	}
+	
+
+	
+}

@@ -1,0 +1,149 @@
+package deberListasDoblementeEnlazadas;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+public class AplicacionGUI extends JFrame implements ActionListener{
+
+	private JLabel lblInsertar, lblEliminar, lblBuscar;
+	private JButton btnInsInicio, btnInsFinal, btnElimInicio, btnElimFinal, btnElimIndice, btnElimNombre, btnBuscIndice, btnBuscNombre ;
+	private JTextField txtInsInicio, txtInsFinal, txtElimInicio, txtElimFinal, txtElimIndice, txtElimNombre, txtBuscIndice, txtBuscFinal;
+	private JTextArea txaDesplegar;
+	private JPanel pnlGUI;
+
+	void LimpiarGUI(){
+		txtInsInicio.setText(null);
+		txtInsInicio.setText(null); 
+		txtInsFinal.setText(null);
+		txtElimInicio.setText(null); 
+		txtElimFinal.setText(null);
+		txtElimIndice.setText(null); 
+		txtElimNombre.setText(null); 
+		txtBuscIndice.setText(null); 
+		txtBuscFinal.setText(null);	
+	}
+
+	public AplicacionGUI(){
+		super("Listas Doblemente Enlazadas");
+		Container contenedor = getContentPane();
+		contenedor.setLayout(new FlowLayout() );
+		contenedor.setBounds( 10, 200, 100, 100 );
+		contenedor.setBackground(Color.LIGHT_GRAY);
+
+		lblInsertar = new JLabel("Insertar");
+		//lblInsertar.setToolTipText( "" );
+		contenedor.add(lblInsertar);
+		lblInsertar.setVisible(true);
+
+		lblEliminar = new JLabel("Eliminar");
+		//lblEliminar.setToolTipText( "" );
+		contenedor.add(lblEliminar);
+		lblEliminar.setVisible(true);
+
+		lblBuscar = new JLabel("Buscar");
+		//lblBuscar.setToolTipText( "" );
+		contenedor.add(lblBuscar);
+		lblBuscar.setVisible(true);
+		
+		btnInsInicio = new JButton();
+		btnInsInicio.setText("Al Inicio");
+		contenedor.add(btnInsInicio);
+		btnInsInicio.setActionCommand("Al Inicio");
+		btnInsInicio.addActionListener(this);
+		btnInsInicio.setBackground(Color.WHITE);
+
+		btnInsFinal = new JButton();
+		btnInsFinal.setText("Al Final");
+		contenedor.add(btnInsFinal);
+		btnInsFinal.setActionCommand("Al Final");
+		btnInsFinal.addActionListener(this);
+		btnInsFinal.setBackground(Color.WHITE);
+		
+		btnElimInicio = new JButton();
+		btnElimInicio.setText("Al Inicio.");
+		contenedor.add(btnElimInicio);
+		btnElimInicio.setActionCommand("Al Inicio.");
+		btnElimInicio.addActionListener(this);
+		btnElimInicio.setBackground(Color.WHITE);
+		
+		btnElimFinal = new JButton();
+		btnElimFinal.setText("Al Final.");
+		contenedor.add(btnElimFinal);
+		btnElimFinal.setActionCommand("Al Final.");
+		btnElimFinal.addActionListener(this);
+		btnElimFinal.setBackground(Color.WHITE);
+		
+		btnElimIndice = new JButton();
+		btnElimIndice.setText("Por Indice");
+		contenedor.add(btnElimIndice);
+		btnElimIndice.setActionCommand("Por Indice");
+		btnElimIndice.addActionListener(this);
+		btnElimIndice.setBackground(Color.WHITE);
+		
+		btnBuscIndice = new JButton();
+		btnBuscIndice.setText("Por Índice");
+		contenedor.add(btnBuscIndice);
+		btnBuscIndice.setActionCommand("Por Índice");
+		btnBuscIndice.addActionListener(this);
+		btnBuscIndice.setBackground(Color.WHITE);
+		
+		btnBuscNombre = new JButton();
+		btnBuscNombre.setText("Por Nombre");
+		contenedor.add(btnBuscNombre);
+		btnBuscNombre.setActionCommand("Por Nombre");
+		btnBuscNombre.addActionListener(this);
+		btnBuscNombre.setBackground(Color.WHITE);
+		
+		
+		txaDesplegar=new JTextArea(6,1);
+		txaDesplegar.setEditable(false);
+		contenedor.add(txaDesplegar);
+
+		super.setBounds(100, 200, 500, 200);
+		this.setVisible(true);
+	}
+	
+	public static void main( String args[] ){ 
+		AplicacionGUI aplicacion = new AplicacionGUI();
+		aplicacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		String a = e.getActionCommand();
+
+		if(a.equals("aceptar")){
+			
+		}
+		
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

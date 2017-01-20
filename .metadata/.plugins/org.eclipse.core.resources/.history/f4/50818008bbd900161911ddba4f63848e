@@ -1,0 +1,55 @@
+package segundoBimestre;
+
+import javax.swing.JOptionPane;
+
+public class Aplicacion {
+
+	public static void main(String[] args) {
+		String preg_nodo = null, preg_nodo2 = null; 
+		String preg_lista1 = null, preg_lista2 = null;
+
+		Lista lista_1 = new Lista();
+
+		do{
+			preg_nodo = JOptionPane.showInputDialog("Ingrese la opción que prefiera:\n1.Ingresar un nodo nuevo\n2.Eliminar un nodo\n3.Buscar en la lista\n4.Recorrer la lista\n5.Salir");
+					if(preg_nodo.equals("1")){
+						preg_lista1 = JOptionPane.showInputDialog("1.Si desea ingresar un elemento\n2.Si desea imprimir la lista");
+						if(preg_lista1.equals("1")){
+							preg_lista2 = JOptionPane.showInputDialog("Ingrese el elemento:");
+							Nodo preg_lista_nodo = new Nodo(preg_lista2,null);
+							lista_1.AddFirst(preg_lista_nodo);
+						}
+						else{
+							//imprimir lista
+						}	
+					}
+
+					else if(preg_nodo.equals("2")){
+						preg_lista1 = JOptionPane.showInputDialog("1.Si desea eliminar un elemento\n2.Si desea imprimir la lista");
+						if(preg_lista1.equals("1")){
+							lista_1.RemoveFirst();
+						}
+						else{
+							//imprimir lista
+						}	
+					}
+
+					else if(preg_nodo.equals("3")){
+						//implementar buscar en la lista
+					}
+
+					else if(preg_nodo.equals("4")){
+						//implementar recorrer la lista
+					}
+
+			if(preg_nodo.equals("5")){
+
+			}
+		}
+
+		while(preg_nodo.equals("5"));
+
+		return;
+
+	}
+}

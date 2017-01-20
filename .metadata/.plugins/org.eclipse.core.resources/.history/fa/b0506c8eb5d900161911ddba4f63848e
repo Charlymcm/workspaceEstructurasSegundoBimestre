@@ -1,0 +1,30 @@
+package segundoBimestre;
+
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
+public class Aplicacion {
+
+	public static void main(String[] args) {
+		String preg_nodo = null;
+		
+		Lista lista_1 = new Lista();
+		
+		JOptionPane.showInputDialog("¿Desea ingresar un nodo nuevo?");
+		if( preg_nodo == "N"){
+			//implementar impresion de lista
+		}
+		else{
+			JOptionPane.showInputDialog("Ingrese un elemento a la lista");
+
+
+		}
+
+
+
+
+		return;
+
+	}
+}

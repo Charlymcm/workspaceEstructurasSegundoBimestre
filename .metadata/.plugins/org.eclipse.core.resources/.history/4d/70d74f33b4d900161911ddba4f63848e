@@ -1,0 +1,30 @@
+package segundoBimestre;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Aplicacion {
+
+	public static void main(String[] args) {
+		String ingreso1 = null;
+
+		Lista lista_1 = new Lista();
+
+		Scanner teclado = new Scanner (System.in);
+		System.out.println("¿Desea ingresar un nodo nuevo?");
+		ingreso1 = teclado.nextLine();	
+		if(ingreso1 == "N"){
+			//implementar impresion de lista
+		}
+		else{
+			lista_1.AddFirst(ingreso1);
+
+		}
+
+
+
+
+		return;
+
+	}
+}

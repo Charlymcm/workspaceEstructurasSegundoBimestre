@@ -1,0 +1,28 @@
+package segundoBimestre;
+
+import java.util.Scanner;
+
+public class Aplicacion {
+
+	public static void main(String[] args) {
+		String ingreso1 = null;
+		Lista lista_1 = new Lista();
+		
+		JOptionPane.showinputDialog("¿Desea ingresar un nodo nuevo?");
+		System.out.println("¿Desea ingresar un nodo nuevo?");
+		ingreso1 = teclado.nextLine();	
+		if(ingreso1 == "N"){
+			//implementar impresion de lista
+		}
+		else{
+			System.out.println("Ingrese un elemento a la lista");
+
+		}
+
+
+
+
+		return;
+
+	}
+}
